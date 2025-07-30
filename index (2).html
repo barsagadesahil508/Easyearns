@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Earn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Auth Pages */
+        .auth-container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        
+        .auth-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .auth-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4a6bff;
+            font-size: 24px;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .auth-button {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .auth-button:hover {
+            background-color: #3a5bef;
+        }
+        
+        .auth-toggle {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .auth-toggle button {
+            background: none;
+            border: none;
+            color: #4a6bff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Home Page */
+        .header {
+            background-color: #4a6bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-btn {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .welcome-text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .made-by {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .balance-card {
+            background: linear-gradient(135deg, #4a6bff, #6a8bff);
+            color: white;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(74, 107, 255, 0.3);
+        }
+        
+        .balance-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+        
+        .balance-amount {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .earning-options {
+            padding: 0 15px;
+        }
+        
+        .option-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        
+        .option-card:active {
+            transform: scale(0.98);
+        }
+        
+        .option-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #e6e9ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #4a6bff;
+            font-size: 20px;
+        }
+        
+        .option-content {
+            flex: 1;
+        }
+        
+        .option-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .option-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .nav-item.active {
+            color: #4a6bff;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+        
+        /* Video Page */
+        .video-container {
+            padding: 15px;
+        }
+        
+        .video-frame {
+            width: 100%;
+            height: 200px;
+            background-color: #000;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .video-frame iframe {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .video-info {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .video-reward {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            color: #4CAF50;
+            font-weight: 600;
+        }
+        
+        .video-reward i {
+            margin-right: 5px;
+        }
+        
+        .watch-button {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        
+        /* Tasks Page */
+        .tasks-container {
+            padding: 15px;
+        }
+        
+        .task-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .task-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .task-reward {
+            color: #4CAF50;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .task-reward i {
+            margin-right: 5px;
+        }
+        
+        .task-button {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        
+        /* Spin Page */
+        .spin-container {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .wheel-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 20px auto;
+        }
+        
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid #4a6bff;
+            box-shadow: 0 0 0 5px white, 0 0 0 10px #4a6bff;
+            transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            transform: rotate(0deg);
+        }
+        
+        .wheel-section {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: bottom right;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .spin-button {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(74, 107, 255, 0.4);
+        }
+        
+        .spin-stats {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Tap to Earn Section */
+        .tap-to-earn {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .tap-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .tap-counter {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .tap-button {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        
+        .tap-button:active {
+            transform: scale(0.95);
+        }
+        
+        .tap-reward {
+            color: #4CAF50;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        /* Reward Page */
+        .reward-container {
+            padding: 15px;
+        }
+        
+        .withdraw-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .withdraw-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .withdraw-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .withdraw-amount {
+            font-weight: 600;
+        }
+        
+        .withdraw-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        /* Withdraw Form */
+        .withdraw-form {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .submit-button {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        
+        /* Profile Page */
+        .profile-container {
+            padding: 15px;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            background-color: #e6e9ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #4a6bff;
+            margin-right: 15px;
+        }
+        
+        .profile-info h3 {
+            margin-bottom: 5px;
+        }
+        
+        .profile-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .logout-button {
+            background-color: #ff4a4a;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .modal-message {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .modal-button {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        /* Ad Containers */
+        .ad-container {
+            width: 100%;
+            margin: 15px 0;
+            text-align: center;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        
+        .ad-banner {
+            width: 100%;
+            height: 90px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        
+        .ad-banner-large {
+            height: 250px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Auth Screen -->
+        <div id="auth-screen" class="auth-container">
+            <div class="auth-box">
+                <h1 class="auth-title">Easy Earn</h1>
+                
+                <!-- Ad before login form -->
+                <div class="ad-container">
+                    <div class="ad-banner">
+                        Advertisement
+                        <script type="text/javascript">
+                            atOptions = {
+                                'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                'format' : 'iframe',
+                                'height' : 90,
+                                'width' : 320,
+                                'params' : {}
+                            };
+                            document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                        </script>
+                    </div>
+                </div>
+                
+                <div id="login-form" class="auth-form">
+                    <div class="input-group">
+                        <label for="login-name">Name</label>
+                        <input type="text" id="login-name" placeholder="Enter your name">
+                    </div>
+                    <div class="input-group">
+                        <label for="login-mobile">Mobile Number</label>
+                        <input type="tel" id="login-mobile" placeholder="Enter your mobile number">
+                    </div>
+                    <button id="login-button" class="auth-button">Login</button>
+                    <div class="auth-toggle">
+                        <p>Don't have an account? <button id="show-register">Register</button></p>
+                    </div>
+                </div>
+                
+                <div id="register-form" class="auth-form" style="display: none;">
+                    <div class="input-group">
+                        <label for="register-name">Name</label>
+                        <input type="text" id="register-name" placeholder="Enter your name">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-mobile">Mobile Number</label>
+                        <input type="tel" id="register-mobile" placeholder="Enter your mobile number">
+                    </div>
+                    <button id="register-button" class="auth-button">Register</button>
+                    <div class="auth-toggle">
+                        <p>Already have an account? <button id="show-login">Login</button></p>
+                    </div>
+                </div>
+                
+                <!-- Ad after login form -->
+                <div class="ad-container">
+                    <div class="ad-banner">
+                        Advertisement
+                        <script type="text/javascript">
+                            atOptions = {
+                                'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                'format' : 'iframe',
+                                'height' : 90,
+                                'width' : 320,
+                                'params' : {}
+                            };
+                            document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main App (hidden initially) -->
+        <div id="app-container" style="display: none;">
+            <!-- Header -->
+            <div class="header">
+                <button id="profile-btn" class="profile-btn">
+                    <i class="fas fa-user"></i>
+                </button>
+                <div class="welcome-text">Welcome to Easy Earn</div>
+                <div class="made-by">Made By Sahil</div>
+            </div>
+            
+            <!-- Balance Card -->
+            <div class="balance-card">
+                <div class="balance-title">Your Balance</div>
+                <div class="balance-amount" id="balance-amount">0 coins</div>
+            </div>
+            
+            <!-- Main Content (changes based on navigation) -->
+            <div id="main-content">
+                <!-- Home Page -->
+                <div id="home-page" class="earning-options">
+                    <!-- Ad at top of home page -->
+                    <div class="ad-container">
+                        <div class="ad-banner">
+                            Advertisement
+                            <script type="text/javascript">
+                                atOptions = {
+                                    'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                    'format' : 'iframe',
+                                    'height' : 90,
+                                    'width' : 320,
+                                    'params' : {}
+                                };
+                                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                            </script>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" id="watch-video-btn">
+                        <div class="option-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="option-content">
+                            <div class="option-title">Watch Video & Earn</div>
+                            <div class="option-desc">Watch videos and earn 50 coins per video</div>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    
+                    <div class="option-card" id="tasks-btn">
+                        <div class="option-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="option-content">
+                            <div class="option-title">Complete Tasks</div>
+                            <div class="option-desc">Complete tasks and earn 30 coins per task</div>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    
+                    <div class="option-card" id="spin-btn">
+                        <div class="option-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <div class="option-content">
+                            <div class="option-title">Spin & Win</div>
+                            <div class="option-desc">Spin the wheel and win coins (20 spins/day)</div>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    
+                    <!-- Ad in middle of home page -->
+                    <div class="ad-container">
+                        <div class="ad-banner">
+                            Advertisement
+                            <script type="text/javascript">
+                                atOptions = {
+                                    'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                    'format' : 'iframe',
+                                    'height' : 90,
+                                    'width' : 320,
+                                    'params' : {}
+                                };
+                                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                            </script>
+                        </div>
+                    </div>
+                    
+                    <!-- Tap to Earn Section -->
+                    <div class="tap-to-earn">
+                        <div class="tap-title">Tap to Earn</div>
+                        <div class="tap-counter" id="tap-counter">Taps today: 0/1000</div>
+                        <button class="tap-button" id="tap-button">TAP HERE</button>
+                        <div class="tap-reward">
+                            <i class="fas fa-coins"></i> +5 coins per tap
+                        </div>
+                    </div>
+                    
+                    <!-- Ad at bottom of home page -->
+                    <div class="ad-container">
+                        <div class="ad-banner">
+                            Advertisement
+                            <script type="text/javascript">
+                                atOptions = {
+                                    'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                    'format' : 'iframe',
+                                    'height' : 90,
+                                    'width' : 320,
+                                    'params' : {}
+                                };
+                                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Page (hidden initially) -->
+                <div id="video-page" style="display: none;">
+                    <div class="video-container">
+                        <!-- Ad before video -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                        
+                        <div class="video-frame">
+                            <iframe id="youtube-embed" src="https://www.youtube.com/embed/uh12BmfrmhE?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        
+                        <!-- Ad after video -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                        
+                        <div class="video-info">
+                            <div class="video-title">Watch this video to earn coins</div>
+                            <p>Watch the complete video to earn 50 coins. You can watch 10 videos per day.</p>
+                            <div class="video-reward">
+                                <i class="fas fa-coins"></i> +50 coins
+                            </div>
+                            <button id="claim-reward" class="watch-button" style="display: none;">Claim Reward</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tasks Page (hidden initially) -->
+                <div id="tasks-page" style="display: none;">
+                    <div class="tasks-container">
+                        <!-- Ad at top of tasks page -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                        
+                        <div class="task-card">
+                            <div class="task-title">Download App 1</div>
+                            <div class="task-desc">Download and install this app to earn coins</div>
+                            <div class="task-reward">
+                                <i class="fas fa-coins"></i> +30 coins
+                            </div>
+                            <a href="https://play.google.com/store/apps/details?id=com.whatsapp" target="_blank" class="task-button">Start Task</a>
+                        </div>
+                        
+                        <!-- Ad between tasks -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                        
+                        <div class="task-card">
+                            <div class="task-title">Download App 2</div>
+                            <div class="task-desc">Download and install this app to earn coins</div>
+                            <div class="task-reward">
+                                <i class="fas fa-coins"></i> +30 coins
+                            </div>
+                            <a href="https://play.google.com/store/apps/details?id=com.instagram.android" target="_blank" class="task-button">Start Task</a>
+                        </div>
+                        
+                        <div class="task-card">
+                            <div class="task-title">Download App 3</div>
+                            <div class="task-desc">Download and install this app to earn coins</div>
+                            <div class="task-reward">
+                                <i class="fas fa-coins"></i> +30 coins
+                            </div>
+                            <a href="https://play.google.com/store/apps/details?id=com.facebook.katana" target="_blank" class="task-button">Start Task</a>
+                        </div>
+                        
+                        <!-- Ad at bottom of tasks page -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Spin Page (hidden initially) -->
+                <div id="spin-page" style="display: none;">
+                    <div class="spin-container">
+                        <!-- Ad at top of spin page -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                        
+                        <h3>Spin & Win Coins</h3>
+                        <p>Spin the wheel and win coins (20 spins/day)</p>
+                        
+                        <div class="wheel-container">
+                            <div class="wheel" id="wheel">
+                                <!-- Wheel sections will be added by JS -->
+                            </div>
+                        </div>
+                        
+                        <button id="spin-button" class="spin-button">Spin (20 left)</button>
+                        <div class="spin-stats" id="spin-stats">Today's spins: 0/20</div>
+                        
+                        <!-- Ad at bottom of spin page -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reward Page (hidden initially) -->
+                <div id="reward-page" style="display: none;">
+                    <div class="reward-container">
+                        <!-- Ad at top of reward page -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                        
+                        <div class="withdraw-card">
+                            <div class="withdraw-title">Withdraw Coins</div>
+                            
+                            <div class="withdraw-option">
+                                <div class="withdraw-amount">50 coins = ₹1</div>
+                                <button class="withdraw-button" data-amount="50">Withdraw</button>
+                            </div>
+                            
+                            <div class="withdraw-option">
+                                <div class="withdraw-amount">500 coins = ₹10</div>
+                                <button class="withdraw-button" data-amount="500">Withdraw</button>
+                            </div>
+                            
+                            <div class="withdraw-option">
+                                <div class="withdraw-amount">1000 coins = ₹20</div>
+                                <button class="withdraw-button" data-amount="1000">Withdraw</button>
+                            </div>
+                            
+                            <div class="withdraw-option">
+                                <div class="withdraw-amount">2500 coins = ₹50</div>
+                                <button class="withdraw-button" data-amount="2500">Withdraw</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Withdraw Form (hidden initially) -->
+                        <div id="withdraw-form" class="withdraw-form" style="display: none;">
+                            <div class="form-group">
+                                <label for="withdraw-name">Full Name</label>
+                                <input type="text" id="withdraw-name" placeholder="Enter your full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="withdraw-mobile">Mobile Number</label>
+                                <input type="tel" id="withdraw-mobile" placeholder="Enter your mobile number">
+                            </div>
+                            <div class="form-group">
+                                <label for="withdraw-upi">UPI ID</label>
+                                <input type="text" id="withdraw-upi" placeholder="Enter your UPI ID">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount: <span id="withdraw-amount-display">0</span> coins = ₹<span id="withdraw-rs-display">0</span></label>
+                            </div>
+                            <button id="submit-withdraw" class="submit-button">Submit Withdrawal</button>
+                        </div>
+                        
+                        <!-- Ad at bottom of reward page -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Page (hidden initially) -->
+                <div id="profile-page" style="display: none;">
+                    <div class="profile-container">
+                        <!-- Ad at top of profile page -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-header">
+                            <div class="profile-avatar" id="profile-avatar">U</div>
+                            <div class="profile-info">
+                                <h3 id="profile-name">User</h3>
+                                <p id="profile-mobile">+91 9876543210</p>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="total-earned">0</div>
+                                <div class="stat-label">Total Earned</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="total-withdrawn">0</div>
+                                <div class="stat-label">Withdrawn</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="available-balance">0</div>
+                                <div class="stat-label">Balance</div>
+                            </div>
+                        </div>
+                        
+                        <button id="logout-button" class="logout-button">Logout</button>
+                        
+                        <!-- Ad at bottom of profile page -->
+                        <div class="ad-container">
+                            <div class="ad-banner">
+                                Advertisement
+                                <script type="text/javascript">
+                                    atOptions = {
+                                        'key' : 'ec0c45c74f7d229e31875412123f0723',
+                                        'format' : 'iframe',
+                                        'height' : 90,
+                                        'width' : 320,
+                                        'params' : {}
+                                    };
+                                    document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/ec0c45c74f7d229e31875412123f0723/invoke.js"></scr' + 'ipt>');
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Bar -->
+            <div class="nav-bar">
+                <div class="nav-item active" id="nav-home">
+                    <div class="nav-icon"><i class="fas fa-home"></i></div>
+                    <div>Home</div>
+                </div>
+                <div class="nav-item" id="nav-tasks">
+                    <div class="nav-icon"><i class="fas fa-tasks"></i></div>
+                    <div>Tasks</div>
+                </div>
+                <div class="nav-item" id="nav-reward">
+                    <div class="nav-icon"><i class="fas fa-gift"></i></div>
+                    <div>Reward</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal -->
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <div class="modal-title" id="modal-title">Success</div>
+                <div class="modal-message" id="modal-message">Your action was successful.</div>
+                <button class="modal-button" id="modal-button">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // App State
+        const state = {
+            user: null,
+            balance: 0,
+            spinsLeft: 20,
+            videosWatchedToday: 0,
+            maxVideosPerDay: 10,
+            wheelPrizes: [50, 100, 200, 500, 10, 20, 1000, 5, 30, 2000, 1, 300],
+            tasksCompleted: [],
+            totalEarned: 0,
+            totalWithdrawn: 0,
+            currentWithdrawAmount: 0,
+            videoStarted: false,
+            videoCompleted: false,
+            tapsToday: 0,
+            maxTapsPerDay: 1000,
+            coinsPerTap: 5
+        };
+        
+        // DOM Elements
+        const authScreen = document.getElementById('auth-screen');
+        const appContainer = document.getElementById('app-container');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        const loginButton = document.getElementById('login-button');
+        const registerButton = document.getElementById('register-button');
+        const loginName = document.getElementById('login-name');
+        const loginMobile = document.getElementById('login-mobile');
+        const registerName = document.getElementById('register-name');
+        const registerMobile = document.getElementById('register-mobile');
+        
+        const profileBtn = document.getElementById('profile-btn');
+        const balanceAmount = document.getElementById('balance-amount');
+        const navItems = document.querySelectorAll('.nav-item');
+        const homePage = document.getElementById('home-page');
+        const videoPage = document.getElementById('video-page');
+        const tasksPage = document.getElementById('tasks-page');
+        const spinPage = document.getElementById('spin-page');
+        const rewardPage = document.getElementById('reward-page');
+        const profilePage = document.getElementById('profile-page');
+        
+        const watchVideoBtn = document.getElementById('watch-video-btn');
+        const tasksBtn = document.getElementById('tasks-btn');
+        const spinBtn = document.getElementById('spin-btn');
+        const tapButton = document.getElementById('tap-button');
+        const tapCounter = document.getElementById('tap-counter');
+        
+        const claimRewardBtn = document.getElementById('claim-reward');
+        
+        const wheel = document.getElementById('wheel');
+        const spinButton = document.getElementById('spin-button');
+        const spinStats = document.getElementById('spin-stats');
+        
+        const withdrawButtons = document.querySelectorAll('.withdraw-button');
+        const withdrawForm = document.getElementById('withdraw-form');
+        const withdrawName = document.getElementById('withdraw-name');
+        const withdrawMobile = document.getElementById('withdraw-mobile');
+        const withdrawUpi = document.getElementById('withdraw-upi');
+        const withdrawAmountDisplay = document.getElementById('withdraw-amount-display');
+        const withdrawRsDisplay = document.getElementById('withdraw-rs-display');
+        const submitWithdraw = document.getElementById('submit-withdraw');
+        
+        const profileName = document.getElementById('profile-name');
+        const profileMobile = document.getElementById('profile-mobile');
+        const profileAvatar = document.getElementById('profile-avatar');
+        const totalEarned = document.getElementById('total-earned');
+        const totalWithdrawn = document.getElementById('total-withdrawn');
+        const availableBalance = document.getElementById('available-balance');
+        const logoutButton = document.getElementById('logout-button');
+        
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalButton = document.getElementById('modal-button');
+        
+        // WhatsApp number
+        const whatsappNumber = "8767160204";
+        
+        // YouTube player variable
+        let player;
+        
+        // Initialize the app
+        function init() {
+            // Check if user is already logged in
+            const userData = localStorage.getItem('easyEarnUser');
+            if (userData) {
+                state.user = JSON.parse(userData);
+                loadUserData();
+                showApp();
+            }
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Initialize wheel
+            initWheel();
+            
+            // Load YouTube API
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+        
+        // YouTube API ready callback
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-embed', {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+        
+        // Handle YouTube player state changes
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING && !state.videoStarted) {
+                state.videoStarted = true;
+            }
+            if (event.data === YT.PlayerState.ENDED && !state.videoCompleted) {
+                state.videoCompleted = true;
+                claimRewardBtn.style.display = 'block';
+            }
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Auth screen
+            showRegister.addEventListener('click', () => {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            });
+            
+            showLogin.addEventListener('click', () => {
+                registerForm.style.display = 'none';
+                loginForm.style.display = 'block';
+            });
+            
+            loginButton.addEventListener('click', handleLogin);
+            registerButton.addEventListener('click', handleRegister);
+            
+            // Navigation
+            navItems.forEach(item => {
+                item.addEventListener('click', handleNavClick);
+            });
+            
+            profileBtn.addEventListener('click', () => {
+                showPage('profile');
+                updateNav('profile');
+            });
+            
+            // Home page buttons
+            watchVideoBtn.addEventListener('click', () => {
+                showPage('video');
+                updateNav('video');
+            });
+            
+            tasksBtn.addEventListener('click', () => {
+                showPage('tasks');
+                updateNav('tasks');
+            });
+            
+            spinBtn.addEventListener('click', () => {
+                showPage('spin');
+                updateNav('spin');
+            });
+            
+            // Video page
+            claimRewardBtn.addEventListener('click', claimVideoReward);
+            
+            // Spin page
+            spinButton.addEventListener('click', spinWheel);
+            
+            // Tap to Earn
+            tapButton.addEventListener('click', handleTap);
+            
+            // Withdraw buttons
+            withdrawButtons.forEach(button => {
+                button.addEventListener('click', handleWithdrawClick);
+            });
+            
+            // Submit withdraw
+            submitWithdraw.addEventListener('click', submitWithdrawal);
+            
+            // Profile page
+            logoutButton.addEventListener('click', handleLogout);
+            
+            // Modal
+            modalButton.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+        }
+        
+        // Handle login
+        function handleLogin() {
+            const name = loginName.value.trim();
+            const mobile = loginMobile.value.trim();
+            
+            if (!name || !mobile) {
+                showModal('Error', 'Please enter both name and mobile number');
+                return;
+            }
+            
+            // In a real app, you would verify credentials
+            // For this demo, we'll just check if user exists in localStorage
+            const users = JSON.parse(localStorage.getItem('easyEarnUsers') || '[]');
+            const user = users.find(u => u.name === name && u.mobile === mobile);
+            
+            if (user) {
+                state.user = user;
+                localStorage.setItem('easyEarnUser', JSON.stringify(user));
+                loadUserData();
+                showApp();
+            } else {
+                showModal('Error', 'User not found. Please register.');
+            }
+        }
+        
+        // Handle registration
+        function handleRegister() {
+            const name = registerName.value.trim();
+            const mobile = registerMobile.value.trim();
+            
+            if (!name || !mobile) {
+                showModal('Error', 'Please enter both name and mobile number');
+                return;
+            }
+            
+            // In a real app, you would validate the inputs
+            const newUser = {
+                id: Date.now().toString(),
+                name,
+                mobile,
+                balance: 0,
+                spinsLeft: 20,
+                videosWatchedToday: 0,
+                tasksCompleted: [],
+                totalEarned: 0,
+                totalWithdrawn: 0,
+                tapsToday: 0,
+                createdAt: new Date().toISOString()
+            };
+            
+            // Save user to "database" (localStorage)
+            const users = JSON.parse(localStorage.getItem('easyEarnUsers') || '[]');
+            users.push(newUser);
+            localStorage.setItem('easyEarnUsers', JSON.stringify(users));
+            
+            // Log the user in
+            state.user = newUser;
+            localStorage.setItem('easyEarnUser', JSON.stringify(newUser));
+            loadUserData();
+            showApp();
+            
+            showModal('Success', 'Account created successfully!');
+        }
+        
+        // Load user data
+        function loadUserData() {
+            if (!state.user) return;
+            
+            // Load from localStorage
+            const userData = JSON.parse(localStorage.getItem('easyEarnUser'));
+            if (userData) {
+                state.user = userData;
+                state.balance = userData.balance || 0;
+                state.spinsLeft = userData.spinsLeft || 20;
+                state.videosWatchedToday = userData.videosWatchedToday || 0;
+                state.tasksCompleted = userData.tasksCompleted || [];
+                state.totalEarned = userData.totalEarned || 0;
+                state.totalWithdrawn = userData.totalWithdrawn || 0;
+                state.tapsToday = userData.tapsToday || 0;
+            }
+            
+            // Update UI
+            updateUI();
+            updateTapUI();
+        }
+        
+        // Save user data
+        function saveUserData() {
+            if (!state.user) return;
+            
+            // Update user object
+            state.user.balance = state.balance;
+            state.user.spinsLeft = state.spinsLeft;
+            state.user.videosWatchedToday = state.videosWatchedToday;
+            state.user.tasksCompleted = state.tasksCompleted;
+            state.user.totalEarned = state.totalEarned;
+            state.user.totalWithdrawn = state.totalWithdrawn;
+            state.user.tapsToday = state.tapsToday;
+            
+            // Save to localStorage
+            localStorage.setItem('easyEarnUser', JSON.stringify(state.user));
+            
+            // Also update in users array
+            const users = JSON.parse(localStorage.getItem('easyEarnUsers') || '[]');
+            const userIndex = users.findIndex(u => u.id === state.user.id);
+            if (userIndex !== -1) {
+                users[userIndex] = state.user;
+                localStorage.setItem('easyEarnUsers', JSON.stringify(users));
+            }
+            
+            // Update UI
+            updateUI();
+            updateTapUI();
+        }
+        
+        // Show the app (after login)
+        function showApp() {
+            authScreen.style.display = 'none';
+            appContainer.style.display = 'block';
+            showPage('home');
+            updateNav('home');
+        }
+        
+        // Handle navigation click
+        function handleNavClick(e) {
+            const page = this.id.replace('nav-', '');
+            showPage(page);
+            updateNav(page);
+        }
+        
+        // Show a specific page
+        function showPage(page) {
+            // Hide all pages
+            homePage.style.display = 'none';
+            videoPage.style.display = 'none';
+            tasksPage.style.display = 'none';
+            spinPage.style.display = 'none';
+            rewardPage.style.display = 'none';
+            profilePage.style.display = 'none';
+            
+            // Reset video state
+            if (page !== 'video') {
+                state.videoStarted = false;
+                state.videoCompleted = false;
+                claimRewardBtn.style.display = 'none';
+            }
+            
+            // Hide withdraw form
+            withdrawForm.style.display = 'none';
+            
+            // Show the requested page
+            switch (page) {
+                case 'home':
+                    homePage.style.display = 'block';
+                    break;
+                case 'video':
+                    videoPage.style.display = 'block';
+                    break;
+                case 'tasks':
+                    tasksPage.style.display = 'block';
+                    break;
+                case 'spin':
+                    spinPage.style.display = 'block';
+                    break;
+                case 'reward':
+                    rewardPage.style.display = 'block';
+                    break;
+                case 'profile':
+                    profilePage.style.display = 'block';
+                    break;
+            }
+        }
+        
+        // Update navigation active state
+        function updateNav(activePage) {
+            navItems.forEach(item => {
+                if (item.id === `nav-${activePage}`) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        
+        // Claim video reward
+        function claimVideoReward() {
+            if (state.videosWatchedToday >= state.maxVideosPerDay) {
+                showModal('Limit Reached', `You've already watched ${state.maxVideosPerDay} videos today. Come back tomorrow!`);
+                return;
+            }
+            
+            if (!state.videoCompleted) {
+                showModal('Error', 'Please watch the complete video first');
+                return;
+            }
+
+            // Add coins
+            const coinsEarned = 50;
+            state.balance += coinsEarned;
+            state.totalEarned += coinsEarned;
+            state.videosWatchedToday += 1;
+            
+            // Save and update
+            saveUserData();
+            
+            // Show success message
+            showModal('Success', `You earned ${coinsEarned} coins for watching the video!`);
+            
+            // Hide claim button
+            claimRewardBtn.style.display = 'none';
+            state.videoCompleted = false;
+            state.videoStarted = false;
+        }
+        
+        // Handle tap
+        function handleTap() {
+            if (state.tapsToday >= state.maxTapsPerDay) {
+                showModal('Limit Reached', "You've reached your daily tap limit (1000 taps)");
+                return;
+            }
+            
+            // Add coins
+            state.tapsToday++;
+            state.balance += state.coinsPerTap;
+            state.totalEarned += state.coinsPerTap;
+            
+            // Save and update
+            saveUserData();
+            
+            // Show visual feedback
+            tapButton.textContent = "TAPPED!";
+            setTimeout(() => {
+                tapButton.textContent = "TAP HERE";
+            }, 200);
+        }
+        
+        // Update tap UI
+        function updateTapUI() {
+            tapCounter.textContent = `Taps today: ${state.tapsToday}/${state.maxTapsPerDay}`;
+        }
+        
+        // Initialize the spin wheel
+        function initWheel() {
+            wheel.innerHTML = '';
+            const sectionAngle = 360 / state.wheelPrizes.length;
+            
+            state.wheelPrizes.forEach((prize, index) => {
+                const section = document.createElement('div');
+                section.className = 'wheel-section';
+                section.style.transform = `rotate(${sectionAngle * index}deg)`;
+                section.style.backgroundColor = getRandomColor(index);
+                section.innerHTML = `<div style="transform: rotate(${sectionAngle / 2}deg)">${prize}</div>`;
+                wheel.appendChild(section);
+            });
+            
+            // Update spin stats
+            spinStats.textContent = `Today's spins: ${20 - state.spinsLeft}/20`;
+            spinButton.textContent = `Spin (${state.spinsLeft} left)`;
+        }
+        
+        // Spin the wheel
+        function spinWheel() {
+            if (state.spinsLeft <= 0) {
+                showModal('Limit Reached', "You've used all your spins for today. Come back tomorrow!");
+                return;
+            }
+            
+            spinButton.disabled = true;
+            state.spinsLeft -= 1;
+            saveUserData();
+            
+            // Random spin (2-5 full rotations plus a random angle)
+            const spinAngle = 360 * (3 + Math.floor(Math.random() * 3)) + Math.floor(Math.random() * 360);
+            wheel.style.transform = `rotate(${spinAngle}deg)`;
+            
+            // Calculate the prize after spinning
+            setTimeout(() => {
+                const sectionAngle = 360 / state.wheelPrizes.length;
+                const normalizedAngle = spinAngle % 360;
+                const winningIndex = Math.floor((360 - normalizedAngle) / sectionAngle);
+                const prize = state.wheelPrizes[winningIndex];
+                
+                // Add the prize to balance
+                state.balance += prize;
+                state.totalEarned += prize;
+                saveUserData();
+                
+                // Show the prize
+                showModal('Congratulations!', `You won ${prize} coins!`);
+                
+                // Update UI
+                spinButton.textContent = `Spin (${state.spinsLeft} left)`;
+                spinStats.textContent = `Today's spins: ${20 - state.spinsLeft}/20`;
+                spinButton.disabled = false;
+            }, 4000);
+        }
+        
+        // Handle withdraw click
+        function handleWithdrawClick() {
+            const amount = parseInt(this.getAttribute('data-amount'));
+            
+            if (state.balance < amount) {
+                showModal('Error', `You need at least ${amount} coins to withdraw.`);
+                return;
+            }
+            
+            // Show withdraw form
+            state.currentWithdrawAmount = amount;
+            withdrawAmountDisplay.textContent = amount;
+            withdrawRsDisplay.textContent = amount / 50;
+            
+            // Pre-fill user details
+            withdrawName.value = state.user.name;
+            withdrawMobile.value = state.user.mobile;
+            
+            withdrawForm.style.display = 'block';
+            
+            // Scroll to form
+            withdrawForm.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Submit withdrawal
+        function submitWithdrawal() {
+            const name = withdrawName.value.trim();
+            const mobile = withdrawMobile.value.trim();
+            const upi = withdrawUpi.value.trim();
+            const amount = state.currentWithdrawAmount;
+            const rupees = amount / 50;
+            
+            if (!name || !mobile || !upi) {
+                showModal('Error', 'Please fill all the details');
+                return;
+            }
+            
+            // Deduct from balance
+            state.balance -= amount;
+            state.totalWithdrawn += rupees;
+            saveUserData();
+            
+            // Create WhatsApp message
+            const message = `Withdrawal Request%0A%0AName: ${name}%0AMobile: ${mobile}%0AUPI ID: ${upi}%0AAmount: ${amount} coins (₹${rupees})`;
+            
+            // Try different WhatsApp URL formats
+            const whatsappUrls = [
+                `https://wa.me/${whatsappNumber}?text=${message}`,
+                `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`
+            ];
+            
+            // Open WhatsApp (try multiple formats)
+            let success = false;
+            whatsappUrls.forEach(url => {
+                const testLink = document.createElement('a');
+                testLink.href = url;
+                testLink.target = '_blank';
+                testLink.style.display = 'none';
+                document.body.appendChild(testLink);
+                testLink.click();
+                document.body.removeChild(testLink);
+                success = true;
+            });
+            
+            if (!success) {
+                // Fallback - show message with details
+                showModal(
+                    'Withdrawal Requested', 
+                    `Could not open WhatsApp automatically. Please send this message manually:\n\n` +
+                    `Name: ${name}\n` +
+                    `Mobile: ${mobile}\n` +
+                    `UPI ID: ${upi}\n` +
+                    `Amount: ${amount} coins (₹${rupees})`
+                );
+            } else {
+                // Show success message
+                showModal('Withdrawal Requested', `Your withdrawal request for ${amount} coins (₹${rupees}) has been submitted. Please wait for processing.`);
+            }
+            
+            // Hide form
+            withdrawForm.style.display = 'none';
+        }
+        
+        // Handle logout
+        function handleLogout() {
+            state.user = null;
+            localStorage.removeItem('easyEarnUser');
+            authScreen.style.display = 'flex';
+            appContainer.style.display = 'none';
+            
+            // Reset forms
+            loginName.value = '';
+            loginMobile.value = '';
+            registerName.value = '';
+            registerMobile.value = '';
+            
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+        }
+        
+        // Update UI with current state
+        function updateUI() {
+            if (!state.user) return;
+            
+            // Balance
+            balanceAmount.textContent = `${state.balance} coins`;
+            
+            // Profile
+            profileName.textContent = state.user.name;
+            profileMobile.textContent = state.user.mobile;
+            profileAvatar.textContent = state.user.name.charAt(0).toUpperCase();
+            
+            // Stats
+            totalEarned.textContent = state.totalEarned;
+            totalWithdrawn.textContent = state.totalWithdrawn;
+            availableBalance.textContent = state.balance;
+            
+            // Spin wheel
+            spinButton.textContent = `Spin (${state.spinsLeft} left)`;
+            spinStats.textContent = `Today's spins: ${20 - state.spinsLeft}/20`;
+        }
+        
+        // Show modal
+        function showModal(title, message) {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modal.classList.add('active');
+        }
+        
+        // Helper function to get random colors for wheel
+        function getRandomColor(index) {
+            const colors = [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', 
+                '#9966FF', '#FF9F40', '#8AC24A', '#607D8B',
+                '#FF5733', '#33FF57', '#3357FF', '#F333FF'
+            ];
+            return colors[index % colors.length];
+        }
+        
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
